@@ -7,14 +7,9 @@ import {
   Badge,
   Divider,
   PageHeader,
-  Menu,
-  Dropdown,
-  Button,
-  Tag,
   Typography,
 } from "antd";
 import styles from "./MainPage.module.css";
-import { EllipsisOutlined } from "@ant-design/icons";
 
 const { Paragraph } = Typography;
 const { RangePicker } = DatePicker;

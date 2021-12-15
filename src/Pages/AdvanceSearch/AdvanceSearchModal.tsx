@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import styles from "./AdvanceSearchModal.module.css";
+// import styles from "./AdvanceSearchModal.module.css";
 import { Modal, Button } from "antd";
 const AdvanceSearchModal: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);

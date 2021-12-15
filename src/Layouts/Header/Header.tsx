@@ -1,11 +1,8 @@
 import React from "react";
-import { Layout, Input, Select, Cascader, Row, Col, Button, Space } from "antd";
+import { Input, Row, Col } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import styles from "./PublicHeader.module.css";
 import AdvanceSearchModal from "../../Pages/AdvanceSearch/AdvanceSearchModal";
-
-const { Header } = Layout;
-const { Option } = Select;
 
 const MainHeader: React.FC = () => {
   return (

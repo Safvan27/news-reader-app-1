@@ -4,9 +4,9 @@ import "./App.css";
 import MainHeader from "./Layouts/Header/Header";
 import MainPage from "./Pages/MainPage/MainPage";
 
-import { Divider, Layout } from "antd";
+import { Layout } from "antd";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Content } = Layout;
 const App: React.FC = () => {
   return (
     <div className="App">
