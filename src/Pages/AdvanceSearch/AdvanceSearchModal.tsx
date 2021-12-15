@@ -5,7 +5,7 @@ import { Modal, Button } from "antd";
 const AdvanceSearchModal: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const handleOk = () => {
-    console.log("clicked ok :>> ");
+    console.log("clicked handleOk :>> ");
   };
   const handleCancel = () => {
     setVisible(false);
