@@ -1,0 +1,17 @@
+.header {
+  height: 70px;
+  background-color: rgb(255, 255, 255);
+  /* box-shadow: 0 0 10px 0 rgba(97, 97, 97, 0.71); */
+}
+.left {
+  display: flex;
+  margin-left: 50px;
+  align-items: left;
+  float: left;
+  height: "50px";
+  font-size: 2em;
+  font-weight: bold;
+}
+.Row {
+  box-shadow: 0 0 10px 0 rgba(196, 196, 196, 0.71);
+}

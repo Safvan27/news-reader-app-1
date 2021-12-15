@@ -1,0 +1,16 @@
+.leftNav {
+  /* background-color: rgb(255, 255, 255); */
+  /* height: 100vh; */
+  padding: 10px 10px 10px 30px;
+}
+.mainContent {
+  /* background-color: rgb(236, 236, 236); */
+  /* height: 100vh; */
+  margin: 10px;
+}
+.antlistitem {
+  margin-top: 10px;
+}
+.antlistitem:hover {
+  box-shadow: 0 0 4px rgb(207, 207, 207, 0.8);
+}
