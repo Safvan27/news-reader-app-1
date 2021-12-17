@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import dayjs from "dayjs";
 import {
   Row,
   Col,
@@ -7,69 +8,72 @@ import {
   Badge,
   Divider,
   PageHeader,
-  Typography,
+  // Typography,
 } from "antd";
+import BackendService from "../../Backend/backend";
 import styles from "./MainPage.module.css";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 
-const { Paragraph } = Typography;
+// var localizedFormat = require("dayjs/plugin/localizedFormat");
+dayjs.extend(localizedFormat);
+// const { Paragraph } = Typography;
 const { RangePicker } = DatePicker;
-const data = [
-  {
-    title: "Ant Design Title 1",
-  },
-  {
-    title: "Ant Design Title 2",
-  },
-  {
-    title: "Ant Design Title 3",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-];
-
-const content = (
-  <>
-    <Paragraph>
-      Ant Design interprets the color system into two levels: a system-level
-      color system and a product-level color system.
-    </Paragraph>
-    <Paragraph>
-      Ant Design&#x27;s design team preferred to design with the HSB color
-      model, which makes it easier for designers to have a clear psychological
-      expectation of color when adjusting colors, as well as facilitate
-      communication in teams.
-    </Paragraph>
-  </>
-);
-
-const Content = ({ children, extraContent }: any) => (
-  <Row>
-    <div style={{ flex: 1 }}>{children}</div>
-    <div className="image">{extraContent}</div>
-  </Row>
-);
 const MainPage: React.FC = () => {
+  const [allNews, setAllnews] = useState<any>([]);
+  const [newsContent, setNewsContent] = useState<any>([]);
+  const apiCall = () => {
+    BackendService.getAllNews(
+      "Iphone",
+      "Positive",
+      "2020-12-01",
+      "2020-12-03",
+      "277,4171",
+      "13010000,04018000"
+    ).then((data: any) => {
+      console.log("data :>> ", data.result.data);
+      setAllnews(data.result.data);
+      setNewsContent(data.result.data[0]);
+    });
+  };
+  useEffect(() => {
+    apiCall();
+  }, []);
+
+  const Content = ({ children, extraContent }: any) => (
+    <Row>
+      <div style={{ flex: 1 }}>{children}</div>
+      <div className="image">{extraContent}</div>
+    </Row>
+  );
   return (
     <Row>
       <Col span={6} className={styles.leftNav}>
         <RangePicker style={{ width: "350px" }} />
         <List
           itemLayout="horizontal"
-          dataSource={data}
+          dataSource={allNews}
           style={{ textAlign: "left" }}
-          renderItem={(item) => (
+          renderItem={(item: any) => (
             <List.Item
               className={styles.antlistitem}
-              onClick={(e) => console.log("e", item.title)}
+              onClick={(e) => setNewsContent(item)}
             >
-              January 31 ,2020
+              {dayjs(item.date).format("LL")}
               <List.Item.Meta
                 title={<div style={{ fontSize: "20px" }}>{item.title}</div>}
                 description={
                   <>
-                    <Badge size="default" status="success" />
-                    "Seatleppi"
+                    <Badge
+                      size="default"
+                      status={
+                        item.sentiment === "Positive"
+                          ? "success"
+                          : item.sentiment === "Negative"
+                          ? "error"
+                          : "default"
+                      }
+                    />
+                    {item.publication}
                   </>
                 }
               />
@@ -79,16 +83,18 @@ const MainPage: React.FC = () => {
       </Col>
       <Divider style={{ height: "100vh" }} type="vertical" />
       <Col span={16} className={styles.mainContent}>
-        <PageHeader title="Title">
-          <Row>
-            <Col>NZ Harald</Col>
-            <Col span={4} offset={18}>
-              January 31,2020
-            </Col>
-          </Row>
-          <Divider />
-          <Content>{content}</Content>
-        </PageHeader>
+        {newsContent ? (
+          <PageHeader title={newsContent.title}>
+            <Row>
+              <Col>{newsContent.publication}</Col>
+              <Col span={4} offset={18}>
+                {dayjs(newsContent.date).format("LL")}
+              </Col>
+            </Row>
+            <Divider />
+            <Content>{newsContent.content.replace(".", "\n")}</Content>
+          </PageHeader>
+        ) : null}
       </Col>
     </Row>
   );
