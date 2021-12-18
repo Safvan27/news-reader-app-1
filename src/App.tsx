@@ -10,13 +10,14 @@ const { Header, Content } = Layout;
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Layout style={{ height: "100vh" }}>
-        <Header className="header">
+      <Layout>
+        <MainPage />
+        {/* <Header className="header">
           <MainHeader />
         </Header>
         <Content>
           <MainPage />
-        </Content>
+        </Content> */}
         {/* <Divider /> */}
         {/* <Footer>December 2021</Footer> */}
       </Layout>
