@@ -6,7 +6,7 @@ import MainPage from "./Pages/MainPage/MainPage";
 
 import { Layout } from "antd";
 
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 const App: React.FC = () => {
   return (
     <div className="App">
@@ -18,8 +18,8 @@ const App: React.FC = () => {
         <Content>
           <MainPage />
         </Content> */}
-        {/* <Divider /> */}
-        {/* <Footer>December 2021</Footer> */}
+        {/* <Divider />
+        <Footer>December 2021</Footer> */}
       </Layout>
     </div>
   );

@@ -8,7 +8,7 @@ import {
   Badge,
   Divider,
   PageHeader,
-  Button,
+  Typography,
   Spin,
 } from "antd";
 import BackendService from "../../Backend/backend";
@@ -18,7 +18,8 @@ import MainHeader from "../../Layouts/Header/Header";
 
 import { Layout } from "antd";
 
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
+const { Paragraph } = Typography;
 
 dayjs.extend(localizedFormat);
 const { RangePicker } = DatePicker;
@@ -86,16 +87,19 @@ const MainPage: React.FC = () => {
     apiCall();
   }, [id]);
 
-  const Content = ({ children, extraContent }: any) => (
-    <Row>
-      <div style={{ flex: 1 }}>{children}</div>
-      <div className="image">{extraContent}</div>
-    </Row>
-  );
-  const ButtonOnclick = () =>
-    // localStorage.setItem("searchTerm", JSON.stringify("Iphone")),
-    setSearchTerm("Iphone");
+  // const Content = ({ children, extraContent }: any) => (
+  //   <Row>
+  //     <div style={{ flex: 1 }}>{children}</div>
+  //     <div className="image">{extraContent}</div>
+  //   </Row>
+  // );
 
+  const handleDatePickerChange = (date: any, dateString: any, id: any) => {
+    setStartDate(dateString[0]);
+    setEndDate(dateString[1]);
+    setId(Math.random());
+  };
+  var today = new Date();
   return (
     <>
       <Header className="header">
@@ -110,7 +114,12 @@ const MainPage: React.FC = () => {
       <Content>
         <Row>
           <Col span={6} className={styles.leftNav}>
-            <RangePicker style={{ width: "350px" }} />
+            <RangePicker
+              style={{ width: "350px" }}
+              onChange={(date, dateString) =>
+                handleDatePickerChange(date, dateString, 1)
+              }
+            />
             <List
               itemLayout="horizontal"
               dataSource={allNews}
@@ -155,7 +164,16 @@ const MainPage: React.FC = () => {
                   </Col>
                 </Row>
                 <Divider />
-                <Content>{newsContent.content}</Content>
+                <Paragraph
+                  ellipsis={{
+                    rows: 20,
+                    expandable: true,
+                    symbol: "Read more..",
+                  }}
+                  className={styles.paragraph}
+                >
+                  {newsContent.content}
+                </Paragraph>
               </PageHeader>
             ) : (
               <Spin className={styles.spin} />
@@ -163,6 +181,8 @@ const MainPage: React.FC = () => {
           </Col>
         </Row>
       </Content>
+      <Divider />
+      <Footer className={styles.footer}>{dayjs(today).format("LL")}</Footer>
     </>
   );
 };

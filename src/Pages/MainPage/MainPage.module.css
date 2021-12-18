@@ -11,6 +11,11 @@
   height: 800px;
   cursor: pointer;
 }
+.paragraph {
+  font-size: 18px;
+  overflow: auto;
+  height: 600px;
+}
 .spin {
   justify-content: center;
   padding-top: 50px;
@@ -21,4 +26,7 @@
 }
 .antlistitem:hover {
   box-shadow: 0 0 4px rgb(207, 207, 207, 0.8);
+}
+.footer {
+  text-align: left;
 }
