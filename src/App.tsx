@@ -1,12 +1,10 @@
 import React from "react";
 import "antd/dist/antd.css";
 import "./App.css";
-import MainHeader from "./Layouts/Header/Header";
 import MainPage from "./Pages/MainPage/MainPage";
 
 import { Layout } from "antd";
 
-const { Header, Content, Footer } = Layout;
 const App: React.FC = () => {
   return (
     <div className="App">

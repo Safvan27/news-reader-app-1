@@ -27,76 +27,51 @@ const MainPage: React.FC = () => {
   const [allNews, setAllnews] = useState<any>([]);
   const [newsContent, setNewsContent] = useState<any>([]);
   const [listloading, setListloading] = useState<boolean>(false);
-
-  const [searchTerm, setSearchTerm] = React.useState<string>("Car");
   const [id, setId] = React.useState<number>(1);
-  const [sentiment, setSentiment] = React.useState<string>("Positive");
-  const [startDate, setStartDate] = React.useState<string>("2020-12-01");
-  const [endDate, setEndDate] = React.useState<string>("2020-12-03");
-  const [sourceId, setSourceId] = React.useState<string>("277,4171");
-  const [categoryId, setCategoryId] =
-    React.useState<string>("13010000,04018000");
-
-  // const [searchTerm, setSearchTerm] = React.useState<any>(
-  //   localStorage.getItem("searchTerm")
-  // );
-  // const [sentiment, setSentiment] = React.useState<any>(
-  //   localStorage.getItem("sentiment")
-  // );
-  // const [startDate, setStartDate] = React.useState<any>(
-  //   localStorage.getItem("startDate")
-  // );
-  // const [endDate, setEndDate] = React.useState<any>(
-  //   localStorage.getItem("endDate")
-  // );
-  // const [sourceId, setSourceId] = React.useState<any>(
-  //   localStorage.getItem("sourceId")
-  // );
-  // const [categoryId, setCategoryId] = React.useState<any>(
-  //   localStorage.getItem("categoryId")
-  // );
+  // const [searchTerm, setSearchTerm] = React.useState("Iphone");
+  // const [sentiment, setSentiment] = React.useState<string>("Positive");
+  // const [startDate, setStartDate] = React.useState<string>("2020-12-01");
+  // const [endDate, setEndDate] = React.useState<string>("2020-12-03");
+  // const [sourceId, setSourceId] = React.useState<string>("277,4171");
+  // const [categoryId, setCategoryId] =
+  //   React.useState<string>("13010000,04018000");
   const apiCall = () => {
     setListloading(true);
     BackendService.getAllNews(
-      searchTerm,
-      sentiment,
-      startDate,
-      endDate,
-      sourceId,
-      categoryId
-      // JSON.parse(searchTerm),
-      // JSON.parse(sentiment),
-      // JSON.parse(startDate),
-      // JSON.parse(endDate),
-      // JSON.parse(sourceId),
-      // JSON.parse(categoryId)
+      localStorage.getItem("searchString")
+        ? localStorage.getItem("searchString")
+        : "Iphone",
+      localStorage.getItem("sentiment")
+        ? localStorage.getItem("sentiment")
+        : "Postive",
+      localStorage.getItem("startDate")
+        ? localStorage.getItem("startDate")
+        : "2020-12-01",
+      localStorage.getItem("endDate")
+        ? localStorage.getItem("endDate")
+        : "2020-12-18",
+      localStorage.getItem("sourceId")
+        ? localStorage.getItem("sourceId")
+        : "277,4171",
+      localStorage.getItem("categoryId")
+        ? localStorage.getItem("categoryId")
+        : "13010000,04018000"
     ).then((data: any) => {
-      setAllnews(data.result.data);
-      setNewsContent(data.result.data[0]);
+      setAllnews(data.result?.data);
+      setNewsContent(data.result?.data[0]);
       setListloading(false);
     });
   };
 
   useEffect(() => {
-    // localStorage.setItem("searchTerm", "Car");
-    // localStorage.setItem("sentiment", "Positive");
-    // localStorage.setItem("startDate", "2020-12-01");
-    // localStorage.setItem("endDate", "2020-12-03");
-    // localStorage.setItem("sourceId", "277,4171");
-    // localStorage.setItem("categoryId", "13010000,04018000");
     apiCall();
   }, [id]);
 
-  // const Content = ({ children, extraContent }: any) => (
-  //   <Row>
-  //     <div style={{ flex: 1 }}>{children}</div>
-  //     <div className="image">{extraContent}</div>
-  //   </Row>
-  // );
-
   const handleDatePickerChange = (date: any, dateString: any, id: any) => {
-    setStartDate(dateString[0]);
-    setEndDate(dateString[1]);
+    // setStartDate(dateString[0]);
+    // setEndDate(dateString[1]);
+    localStorage.setItem("startDate", dateString[0]);
+    localStorage.setItem("endDate", dateString[1]);
     setId(Math.random());
   };
   var today = new Date();
@@ -104,10 +79,10 @@ const MainPage: React.FC = () => {
     <>
       <Header className="header">
         <MainHeader
-          setSearchTerm={setSearchTerm}
-          setSentiment={setSentiment}
-          setSourceId={setSourceId}
-          setCategoryId={setCategoryId}
+          // setSearchTerm={setSearchTerm}
+          // setSentiment={setSentiment}
+          // setSourceId={setSourceId}
+          // setCategoryId={setCategoryId}
           setId={setId}
         />
       </Header>

@@ -1,34 +1,19 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 // import styles from "./AdvanceSearchModal.module.css";
-import {
-  Modal,
-  Button,
-  Row,
-  TreeSelect,
-  Col,
-  Select,
-  Space,
-  Form,
-  Input,
-} from "antd";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { Modal, Button, Row, TreeSelect, Select, Form } from "antd";
 import BackendService from "../../Backend/backend";
 
-const { Option } = Select;
 type SearchModalProps = {
   setId: React.Dispatch<React.SetStateAction<number>>;
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-  setSentiment: React.Dispatch<React.SetStateAction<any>>;
-  setSourceId: React.Dispatch<React.SetStateAction<any>>;
-  setCategoryId: React.Dispatch<React.SetStateAction<any>>;
+  // setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  // setSentiment: React.Dispatch<React.SetStateAction<any>>;
+  // setSourceId: React.Dispatch<React.SetStateAction<any>>;
+  // setCategoryId: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const AdvanceSearchModal: React.FC<SearchModalProps> = (props) => {
-  const { setId, setSearchTerm, setSentiment, setSourceId, setCategoryId } =
-    props;
+  const { setId } = props;
   const [visible, setVisible] = useState<boolean>(false);
-  const [first, setFirst] = useState<string>("category");
   const [sources, setSources] = useState<any>([]);
   const [category, setCategory] = useState<any>([]);
   const [formkey, setFormkey] = useState<number>(1);
@@ -72,22 +57,30 @@ const AdvanceSearchModal: React.FC<SearchModalProps> = (props) => {
   useEffect(() => {
     apiCallSources();
     apiCallCategory();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCancel = () => {
     setFormkey(Math.random());
-    setSearchTerm("Iphone");
-    setSentiment("Positive");
-    setSourceId("277,4171");
-    setCategoryId("13010000,04018000");
+    // setSearchTerm("Iphone");
+    // setSentiment("Positive");
+    // setSourceId("277,4171");
+    // setCategoryId("13010000,04018000");
+    localStorage.setItem("searchString", "Iphone");
+    localStorage.setItem("sentiment", "Positive");
+    localStorage.setItem("sourceId", "277,4171");
+    localStorage.setItem("categoryId", "13010000,04018000");
     setId(Math.random());
     setVisible(false);
   };
   const onFinish = (values: any) => {
-    setSearchTerm("");
-    setSentiment(selectedSentiment);
-    setSourceId(selectedSource.toString());
-    setCategoryId(selectedCategory.toString());
+    // setSearchTerm("");
+    // setSentiment(selectedSentiment);
+    // setSourceId(selectedSource.toString());
+    // setCategoryId(selectedCategory.toString());
+    localStorage.setItem("sentiment", selectedSentiment);
+    localStorage.setItem("sourceId", selectedSource.toString());
+    localStorage.setItem("categoryId", selectedCategory.toString());
     setId(Math.random());
     setVisible(false);
   };
@@ -114,7 +107,6 @@ const AdvanceSearchModal: React.FC<SearchModalProps> = (props) => {
         title="Advanced Search"
         width="700px"
         maskClosable={false}
-        // onOk={handleOk}
         onCancel={handleCancel}
         footer={null}
       >
