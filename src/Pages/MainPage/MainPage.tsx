@@ -13,6 +13,7 @@ import {
   Empty,
 } from "antd";
 import BackendService from "../../Backend/backend";
+import moment from "moment";
 import styles from "./MainPage.module.css";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import MainHeader from "../../Layouts/Header/Header";
@@ -50,7 +51,7 @@ const MainPage: React.FC = () => {
         : "2020-12-01",
       localStorage.getItem("endDate")
         ? localStorage.getItem("endDate")
-        : "2020-12-18",
+        : "2020-12-03",
       localStorage.getItem("sourceId")
         ? localStorage.getItem("sourceId")
         : "277,4171",
@@ -67,7 +68,7 @@ const MainPage: React.FC = () => {
   useEffect(() => {
     apiCall();
   }, [id]);
-
+  const dateFormat = "YYYY/MM/DD";
   const handleDatePickerChange = (date: any, dateString: any, id: any) => {
     // setStartDate(dateString[0]);
     // setEndDate(dateString[1]);
@@ -95,6 +96,10 @@ const MainPage: React.FC = () => {
               onChange={(date, dateString) =>
                 handleDatePickerChange(date, dateString, 1)
               }
+              defaultValue={[
+                moment("2020-12-01", dateFormat),
+                moment("2020-12-03", dateFormat),
+              ]}
             />
             {allNews.length === 0 ? (
               <Empty
