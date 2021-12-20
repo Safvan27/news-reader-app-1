@@ -169,12 +169,16 @@ const AdvanceSearchModal: React.FC<SearchModalProps> = (props) => {
           <Form.Item label="Category">
             <TreeSelect
               multiple
+              placeholder="Select a Category"
               treeData={category}
               onChange={onChangeCategory}
             />
           </Form.Item>
           <Form.Item label="Sentiment">
-            <Select onChange={onChangeSentiment}>
+            <Select
+              onChange={onChangeSentiment}
+              placeholder="Select a Sentiment"
+            >
               <Select.Option value="Positive">Positive</Select.Option>
               <Select.Option value="Negative">Negative</Select.Option>
               <Select.Option value="Neutral">Neutral</Select.Option>
@@ -184,7 +188,7 @@ const AdvanceSearchModal: React.FC<SearchModalProps> = (props) => {
             <Select
               mode="tags"
               style={{ width: "100%" }}
-              placeholder="Tags Mode"
+              placeholder="Select a Sources"
               onChange={onSourceChange}
             >
               {sources}

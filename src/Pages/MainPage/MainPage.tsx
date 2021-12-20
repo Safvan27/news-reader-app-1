@@ -10,6 +10,7 @@ import {
   PageHeader,
   Typography,
   Spin,
+  Empty,
 } from "antd";
 import BackendService from "../../Backend/backend";
 import styles from "./MainPage.module.css";
@@ -95,61 +96,85 @@ const MainPage: React.FC = () => {
                 handleDatePickerChange(date, dateString, 1)
               }
             />
-            <List
-              itemLayout="horizontal"
-              dataSource={allNews}
-              loading={listloading}
-              className={styles.listStyle}
-              renderItem={(item: any) => (
-                <List.Item
-                  className={styles.antlistitem}
-                  onClick={(e) => setNewsContent(item)}
-                >
-                  {dayjs(item.date).format("LL")}
-                  <List.Item.Meta
-                    title={<div style={{ fontSize: "20px" }}>{item.title}</div>}
-                    description={
-                      <>
-                        <Badge
-                          size="default"
-                          status={
-                            item.sentiment === "Positive"
-                              ? "success"
-                              : item.sentiment === "Negative"
-                              ? "error"
-                              : "default"
-                          }
-                        />
-                        {item.publication}
-                      </>
-                    }
-                  />
-                </List.Item>
-              )}
-            />
+            {allNews.length === 0 ? (
+              <Empty
+                image={Empty.PRESENTED_IMAGE_DEFAULT}
+                imageStyle={{
+                  height: 80,
+                }}
+                style={{ marginTop: "50px" }}
+                description={<span>No News for Selected Filter</span>}
+              ></Empty>
+            ) : (
+              <List
+                itemLayout="horizontal"
+                dataSource={allNews}
+                loading={listloading}
+                className={styles.listStyle}
+                renderItem={(item: any) => (
+                  <List.Item
+                    className={styles.antlistitem}
+                    onClick={(e) => setNewsContent(item)}
+                  >
+                    {dayjs(item.date).format("LL")}
+                    <List.Item.Meta
+                      title={
+                        <div style={{ fontSize: "20px" }}>{item.title}</div>
+                      }
+                      description={
+                        <>
+                          <Badge
+                            size="default"
+                            status={
+                              item.sentiment === "Positive"
+                                ? "success"
+                                : item.sentiment === "Negative"
+                                ? "error"
+                                : "default"
+                            }
+                          />
+                          {item.publication}
+                        </>
+                      }
+                    />
+                  </List.Item>
+                )}
+              />
+            )}
           </Col>
           <Divider style={{ height: "100vh" }} type="vertical" />
           <Col span={16} className={styles.mainContent}>
-            {newsContent && !listloading ? (
-              <PageHeader title={newsContent.title}>
-                <Row>
-                  <Col>{newsContent.publication}</Col>
-                  <Col span={4} offset={18}>
-                    {dayjs(newsContent.date).format("LL")}
-                  </Col>
-                </Row>
-                <Divider />
-                <Paragraph
-                  ellipsis={{
-                    rows: 20,
-                    expandable: true,
-                    symbol: "Read more..",
+            {!listloading ? (
+              allNews.length === 0 ? (
+                <Empty
+                  image={Empty.PRESENTED_IMAGE_DEFAULT}
+                  imageStyle={{
+                    height: 80,
                   }}
-                  className={styles.paragraph}
-                >
-                  {newsContent.content}
-                </Paragraph>
-              </PageHeader>
+                  style={{ marginTop: "50px" }}
+                  description={<span>No News for Selected Filter</span>}
+                ></Empty>
+              ) : newsContent ? (
+                <PageHeader title={newsContent.title}>
+                  <Row>
+                    <Col>{newsContent.publication}</Col>
+                    <Col span={4} offset={18}>
+                      {dayjs(newsContent.date).format("LL")}
+                    </Col>
+                  </Row>
+                  <Divider />
+                  <Paragraph
+                    ellipsis={{
+                      rows: 20,
+                      expandable: true,
+                      symbol: "Read more..",
+                    }}
+                    className={styles.paragraph}
+                  >
+                    {newsContent.content}
+                  </Paragraph>
+                </PageHeader>
+              ) : null
             ) : (
               <Spin className={styles.spin} />
             )}
