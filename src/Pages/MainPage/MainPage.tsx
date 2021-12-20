@@ -44,7 +44,7 @@ const MainPage: React.FC = () => {
         : "Iphone",
       localStorage.getItem("sentiment")
         ? localStorage.getItem("sentiment")
-        : "Postive",
+        : "Positive",
       localStorage.getItem("startDate")
         ? localStorage.getItem("startDate")
         : "2020-12-01",
